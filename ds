@@ -1,0 +1,53 @@
+#!/bin/bash
+
+test_dev_name() {
+  ssh "$DEV_HOST" "ls $DEV_ROOT/$1 >/dev/null 2>&1"
+  echo $?
+}
+
+make_new_site() {
+  sitename=$1
+
+
+}
+
+make_dev_site() {
+  sitename=$1
+}
+
+dev_name () {
+  sitename=$1
+  devname=$(echo $sitename | sed 's/\(.*\)\..*/\1.dev/')
+  while [ "$(test_dev_name $devname)" -eq "0" ]; do
+    echo "Dev site $DEV_ROOT/$devname already exists!"
+    echo -n "Choose another site name:"
+    read devname
+  done
+}
+
+if [ -f /etc/dsrc ]; then
+  . /etc/dsrc
+fi
+
+if [ -f ~/.dsrc ]; then
+  . ~/.dsrc
+fi
+
+if [ -z $PRODUCTION_ROOT ]; then
+  echo "No settings loaded!"
+  exit 1
+fi
+
+shift $(($OPTIND - 1))
+
+case $1 in
+  mksite)
+    make_new_site $1
+    ;;
+  mkdev)
+    ;;  pulldb)
+    ;;
+  *)
+    ;;
+esac
+echo $(dev_name "kurort-expert.ru")

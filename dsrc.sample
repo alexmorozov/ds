@@ -1,0 +1,13 @@
+# Settings for the "ds" script
+
+DIST_REPO='git@github.com:alexmorozov/d7.git'
+LOCAL_DIST_BRANCH=dist
+
+PRODUCTION_HOST=localhost
+PRODUCTION_ROOT=/var/www
+
+DEV_HOST=localhost
+DEV_ROOT=/var/www/dev
+
+REPO_HOST=localhost
+REPO_PATH=/var/git/sites
